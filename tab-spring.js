@@ -4,7 +4,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+
 app.use(cors());
+app.options('*', cors());
 app.use(bodyParser.urlencoded({extended: false}));
 
 
@@ -12,9 +14,10 @@ app.use("/tab_spring/", express.static("public"));
 
 
 function verifyRequest(req, res, next) {
-    if(req.headers["access-key"] === "SpringWall") {
+    if(req.headers["accesskey"] === "SpringWall") {
         next();
     } else {
+	console.log(req.headers);
         res.status(400).json({message: "Access denied"});
     }
 }
