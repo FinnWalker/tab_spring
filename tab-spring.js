@@ -1,8 +1,11 @@
 const mongodb = require("./config/database.js");
 
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
+app.use(bodyParser);
+
 
 app.use("/tab_spring/", express.static("public"));
 
