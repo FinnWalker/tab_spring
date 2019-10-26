@@ -4,6 +4,7 @@ const groupController = require("../controllers/group-controller.js");
 
 router.post("/create", groupController.create);
 router.get("/get", groupController.get);
-router.put("/deactivate", groupController.delete);
+router.put("/deactivate", groupController.deactivate);
+router.put("/add", groupController.add);
 
 module.exports = router;

@@ -3,7 +3,7 @@ const sanitize = require("mongo-sanitize");
 
 module.exports = {
     create: function(req, res) {
-        groupModel.create({}, function(err, participant) {
+        groupModel.create({participant_0: "null", participant_1: "null", participant_2: "null", participant_3: "null", active: true}, function(err, group) {
             if(err) {
                 res.status(500).json({message: "Error creating group"});
             } else {
@@ -11,8 +11,39 @@ module.exports = {
             }
         });
     },
+    add: function(req, res) {
+        const participant_id = sanitize(req.body.participant_id);
+        const group_id = sanitize(req.body.group_id);
+        const participant_index = sanitize(req.body.participant_index);
+
+        if (participant_id && group_id && participant_index) {
+            groupModel.findOne({_id: group_id}, (err, group) => {
+                if(err) {
+                    res.status(500).json({message: "There was an error finding the group"});
+                } else if(group) {
+                    if(participant_index === "0") {
+                        group.participant_0 = participant_id;
+                    } else if (participant_index === "1") {
+                        group.participant_1 = participant_id;
+                    } else if (participant_index === "2") {
+                        group.participant_2 = participant_id;
+                    } else if (participant_index === "3") {
+                        group.participant_3 = participant_id;
+                    }
+                    group.save();
+                    res.status(200).json({message: "Group saved"});
+                } else {
+                    res.status(300).json({message: "Could not find group"});
+                }
+            });
+        } else {
+            res.status(300).json({message: "Please include all fields"});
+        }
+
+        
+    },
     get: function(req, res) {
-        groupModel.find({}, (err, groups) => {
+        groupModel.find({active: true}, (err, groups) => {
             if(err) {
                 res.status(500).json({message: "There was an error finding groups"});
             } else {
@@ -20,14 +51,23 @@ module.exports = {
             }
         });
     },
-    delete: function(req, res) {
-        const id = sanitize(req.body.id);
-        participantModel.findOne({_id: id}).remove((err, result) => {
-            if (err) {
-                res.status(500).json({message: "There was an error deleting the group"});
-            } else {
-                res.status(200).json({message: "Group deleted"});
-            }
-        }); 
+    deactivate: function(req, res) {
+        const id = sanitize(req.body.group_id);
+        if(id) {
+            groupModel.findOne({_id: id},(err, group) => {
+                if (err) {
+                    res.status(500).json({message: "There was an error deleting the group"});
+                } else if (group){
+                    group.active = false;
+                    group.save();
+                    res.status(200).json({message: "Group deactivated"});
+                } else {
+                    res.status(300).json({message: "Could not find group"});
+                }
+            }); 
+        } else {
+            res.status(300).json({message: "Please include all fields"});
+        }
+        
     }
 }
