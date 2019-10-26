@@ -27,7 +27,7 @@ module.exports = {
     },
     get: function(req, res) {
         const participant_id = sanitize(req.body.participant_id);
-        participantModel.findOne({participant_id}, (err, participant) => {
+        participantModel.findOne({_id: participant_id}, (err, participant) => {
             if(err) {
                 res.status(500).json({message: "There was an error finding participants"});
             } else {
