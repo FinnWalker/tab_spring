@@ -27,12 +27,18 @@ module.exports = {
     },
     get: function(req, res) {
         const participant_id = sanitize(req.body.participant_id);
-        participantModel.findOne({_id: participant_id}, (err, participant) => {
-            if(err) {
-                res.status(500).json({message: "There was an error finding participants"});
-            } else {
-                res.status(200).json({name: participant.first_name});
-            }
-        })
+        if(participant_id)
+        {
+            participantModel.findOne({_id: participant_id}, (err, participant) => {
+                if(err) {
+                    res.status(500).json({message: "There was an error finding participants"});
+                } else {
+                    res.status(200).json({name: participant.first_name});
+                }
+            });
+        } else {
+            res.status(300).json({message: "Please include all fields"});
+        }
+        
     }
 }
