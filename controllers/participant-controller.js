@@ -31,7 +31,8 @@ module.exports = {
         {
             participantModel.findOne({_id: participant_id}, (err, participant) => {
                 if(err) {
-                    res.status(500).json({message: "There was an error finding participants"});
+                    //res.status(500).json({message: "There was an error finding participants"});
+                    res.status(200).json({name: ""});
                 } else {
                     res.status(200).json({name: participant.first_name});
                 }
