@@ -26,25 +26,13 @@ module.exports = {
         }
     },
     get: function(req, res) {
-        participantModel.find({active: true}, (err, participants) => {
+        const participant_id = sanitize(req.body.participant_id);
+        participantModel.findOne({participant_id}, (err, participant) => {
             if(err) {
                 res.status(500).json({message: "There was an error finding participants"});
             } else {
-                res.status(200).json({participants});
+                res.status(200).json({name: participant.first_name});
             }
         })
-    },
-    deactivate: function(req, res) {
-        participantModel.find({active: true}, (err, participants) => {
-            if(err) {
-                res.status(500).json({message: "There was an error finding participants"});
-            } else {
-                for (let participant of participants) {
-                    participant.active = false;
-                    participant.save();
-                }
-                res.status(200).json({message: "Participants deactivated"});
-            }
-        })
-    },
+    }
 }
