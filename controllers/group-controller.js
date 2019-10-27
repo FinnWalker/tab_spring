@@ -115,7 +115,7 @@ module.exports = {
     }
   },
   stopAll: function(req, res) {
-    groupModel.find({ _id: id }, (err, groups) => {
+    groupModel.find({}, (err, groups) => {
       if (err) {
         res
           .status(500)
