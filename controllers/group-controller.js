@@ -61,21 +61,16 @@ module.exports = {
       }
     });
   },
-  getParticular: function(req, res) {
-    const id = sanitize(req.body.id);
-    if (id) {
-      groupModel.find({ _id: id }, (err, group) => {
-        if (err) {
-          res
-            .status(500)
-            .json({ message: "There was an error finding the group" });
-        } else if (group) {
-          res.status(200).json(group);
-        }
-      });
-    } else {
-      res.status(300).json({ message: "Please provide an id" });
-    }
+  getPlaying: function(req, res) {
+    groupModel.findOne({ playing: true }, (err, group) => {
+      if (err) {
+        res
+          .status(500)
+          .json({ message: "There was an error finding the group" });
+      } else if (group) {
+        res.status(200).json(group);
+      }
+    });
   },
   deactivate: function(req, res) {
     const id = sanitize(req.body.group_id);
@@ -124,11 +119,10 @@ module.exports = {
           .status(500)
           .json({ message: "There was an error deleting the group" });
       } else if (groups) {
-          for (let group of groups)
-          {
-            group.playing = true;
-            group.save();
-          }
+        for (let group of groups) {
+          group.playing = true;
+          group.save();
+        }
         res.status(200).json({ message: "Groups stopped" });
       } else {
         res.status(300).json({ message: "Could not find groups" });
