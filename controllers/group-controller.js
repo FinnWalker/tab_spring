@@ -51,6 +51,20 @@ module.exports = {
             }
         });
     },
+    getParticular: function(req, res) {
+        const id = sanitize(req.body.id);
+        if(id) {
+            groupModel.find({_id: id}, (err, group) => {
+                if(err) {
+                    res.status(500).json({message: "There was an error finding the group"});
+                } else if (group) {
+                    res.status(200).json(group);
+                }
+            });
+        } else {
+            res.status(300).json({message: "Please provide an id"});
+        }
+    },
     deactivate: function(req, res) {
         const id = sanitize(req.body.group_id);
         if(id) {
