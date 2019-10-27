@@ -46,19 +46,19 @@ module.exports = {
   },
   scene_0: function(req, res) {
     res.status(200).json({ message: "Message sent" });
-    req.app.io.emit("scene_0");
+    req.app.io.emit("scene", {scene: 0});
   },
   scene_1: function(req, res) {
     res.status(200).json({ message: "Message sent" });
-    req.app.io.emit("scene_1");
+    req.app.io.emit("scene", {scene: 1});
   },
   scene_2: function(req, res) {
     res.status(200).json({ message: "Message sent" });
-    req.app.io.emit("scene_2");
+    req.app.io.emit("scene", {scene: 2});
   },
   scene_3: function(req, res) {
     res.status(200).json({ message: "Message sent" });
-    req.app.io.emit("scene_3");
+    req.app.io.emit("scene", {scene: 3});
   },
   snap: function(req, res) {
     res.status(200).json({ message: "Message sent" });
