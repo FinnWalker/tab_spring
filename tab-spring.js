@@ -28,5 +28,21 @@ app.use("/tab_spring/api/participants", verifyRequest, participants);
 const groups = require("./routes/groups.js");
 app.use("/tab_spring/api/groups", verifyRequest, groups);
 
+
+app.post("/signature", (req, res) => {
+  
+    var base64Data = req.body.img.replace(/^data:image\/png;base64,/, "");
+    require("fs").writeFile(
+      `./signatures/${req.body.id}.png`,
+      base64Data,
+      "base64",
+      function (err) {
+        if (err) console.log(err);
+      }
+    );
+    res.json({});
+  });
+  
+
 const port = 6666;
 app.listen(port, "0.0.0.0", () => {console.log(`App listening on port ${port}`)});
