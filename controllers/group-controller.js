@@ -122,7 +122,7 @@ module.exports = {
           .json({ message: "There was an error deleting the group" });
       } else if (groups) {
         for (let group of groups) {
-          group.playing = true;
+          group.playing = false;
           group.save();
         }
         res.status(200).json({ message: "Groups stopped" });
