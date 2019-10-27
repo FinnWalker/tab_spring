@@ -39,10 +39,33 @@ module.exports = {
             );
           }
         );
-      }
-      else {
-          res.status(200).json({message: "No playing group found"});
+      } else {
+        res.status(200).json({ message: "No playing group found" });
       }
     });
+  },
+  scene_0: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("scene_0");
+  },
+  scene_1: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("scene_1");
+  },
+  scene_2: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("scene_2");
+  },
+  scene_3: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("scene_3");
+  },
+  snap: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("snap");
+  },
+  send: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("send");
   }
 };
