@@ -67,5 +67,9 @@ module.exports = {
   send: function(req, res) {
     res.status(200).json({ message: "Message sent" });
     req.app.io.emit("send");
+  },
+  retake: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("retake");
   }
 };
