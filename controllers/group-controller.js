@@ -9,7 +9,8 @@ module.exports = {
         participant_1: "null",
         participant_2: "null",
         participant_3: "null",
-        active: false
+        active: true,
+        playing: false
       },
       function(err, group) {
         if (err) {
@@ -77,18 +78,60 @@ module.exports = {
     }
   },
   deactivate: function(req, res) {
-    groupModel.find({}, (err, groups) => {
+    const id = sanitize(req.body.group_id);
+    if (id) {
+      groupModel.findOne({ _id: id }, (err, group) => {
+        if (err) {
+          res
+            .status(500)
+            .json({ message: "There was an error deleting the group" });
+        } else if (group) {
+          group.active = false;
+          group.save();
+          res.status(200).json({ message: "Group deactivated" });
+        } else {
+          res.status(300).json({ message: "Could not find group" });
+        }
+      });
+    } else {
+      res.status(300).json({ message: "Please include all fields" });
+    }
+  },
+  play: function(req, res) {
+    const id = sanitize(req.body.group_id);
+    if (id) {
+      groupModel.findOne({ _id: id }, (err, group) => {
+        if (err) {
+          res
+            .status(500)
+            .json({ message: "There was an error deleting the group" });
+        } else if (group) {
+          group.playing = true;
+          group.save();
+          res.status(200).json({ message: "Group playing" });
+        } else {
+          res.status(300).json({ message: "Could not find group" });
+        }
+      });
+    } else {
+      res.status(300).json({ message: "Please include all fields" });
+    }
+  },
+  stopAll: function(req, res) {
+    groupModel.find({ _id: id }, (err, groups) => {
       if (err) {
         res
           .status(500)
           .json({ message: "There was an error deleting the group" });
       } else if (groups) {
-          for(let group of groups)
+          for (let group of groups)
           {
-            group.active = false;
+            group.playing = true;
             group.save();
           }
-        res.status(200).json({ message: "Groups deactivated" });
+        res.status(200).json({ message: "Groups stopped" });
+      } else {
+        res.status(300).json({ message: "Could not find groups" });
       }
     });
   }

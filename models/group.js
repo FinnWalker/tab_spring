@@ -7,7 +7,8 @@ const GroupSchema = new Schema({
     participant_1: String,
     participant_2: String,
     participant_3: String,
-    active: Boolean
+    active: Boolean,
+    playing: Boolean
 });
 
 module.exports = mongoose.model("Group", GroupSchema);
