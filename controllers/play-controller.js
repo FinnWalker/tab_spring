@@ -27,11 +27,7 @@ module.exports = {
                     participantModel.findOne(
                       { _id: group.participant_3 },
                       (err, participant) => {
-                        if (err) {
-                          res
-                            .status(500)
-                            .json({ message: "Error finding participant" });
-                        } else if (participant) {
+                        if (participant) {
                           emails.push(participant.email);
                         }
                         res.status(200).json(emails);
