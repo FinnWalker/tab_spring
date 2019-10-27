@@ -44,10 +44,6 @@ module.exports = {
       }
     });
   },
-  scene_0: function(req, res) {
-    res.status(200).json({ message: "Message sent" });
-    req.app.io.emit("scene", {scene: 0});
-  },
   scene_1: function(req, res) {
     res.status(200).json({ message: "Message sent" });
     req.app.io.emit("scene", {scene: 1});
@@ -59,6 +55,10 @@ module.exports = {
   scene_3: function(req, res) {
     res.status(200).json({ message: "Message sent" });
     req.app.io.emit("scene", {scene: 3});
+  },
+  scene_4: function(req, res) {
+    res.status(200).json({ message: "Message sent" });
+    req.app.io.emit("scene", {scene: 4});
   },
   snap: function(req, res) {
     res.status(200).json({ message: "Message sent" });
