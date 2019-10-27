@@ -34,8 +34,10 @@ module.exports = {
                 if(err) {
                     //res.status(500).json({message: "There was an error finding participants"});
                     res.status(200).json({first_name: "_", _id: uuid.v4()});
-                } else {
+                } else if(participant) {
                     res.status(200).json(participant);
+                } else {
+                    res.status(300).json({message: "Participant not found"});
                 }
             });
         } else {

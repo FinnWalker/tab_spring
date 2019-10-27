@@ -69,6 +69,8 @@ module.exports = {
           .json({ message: "There was an error finding the group" });
       } else if (group) {
         res.status(200).json(group);
+      } else {
+          res.status(200).json({});
       }
     });
   },
