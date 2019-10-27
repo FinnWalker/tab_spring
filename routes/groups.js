@@ -8,5 +8,5 @@ router.put("/deactivate", groupController.deactivate);
 router.put("/add", groupController.add);
 router.get("/get_playing", groupController.getPlaying);
 router.post("/play", groupController.play);
-router.post("/stop_all", groupController.stopAll);
+router.put("/stop_all", groupController.stopAll);
 module.exports = router;
