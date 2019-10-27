@@ -28,6 +28,9 @@ app.use("/tab_spring/api/participants", verifyRequest, participants);
 const groups = require("./routes/groups.js");
 app.use("/tab_spring/api/groups", verifyRequest, groups);
 
+const play = require("./routes/play.js");
+app.use("/tab_spring/api/play", verifyRequest, play);
+
 
 app.post("/tab_spring/api/signature", (req, res) => {
   
