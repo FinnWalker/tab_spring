@@ -31,7 +31,7 @@ module.exports = {
                         group.participant_3 = participant_id;
                     }
                     group.save();
-                    res.status(200).json({message: "Group saved"});
+                    res.status(200).json(group);
                 } else {
                     res.status(300).json({message: "Could not find group"});
                 }
