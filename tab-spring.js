@@ -54,6 +54,7 @@ const io = require("socket.io").listen(server, {
     path: "/tab_spring/socket.io"
 });
 
+app.io = io;
 
 io.on('connection', (socket) => {
     console.log('a user connected');

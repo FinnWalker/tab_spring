@@ -106,6 +106,7 @@ module.exports = {
           group.playing = true;
           group.save();
           res.status(200).json({ message: "Group playing" });
+          req.app.io.emit('start');
         } else {
           res.status(300).json({ message: "Could not find group" });
         }

@@ -14,7 +14,7 @@
       var socket = io({ path: "/tab_spring/socket.io" });
       function play() {
         socket.emit("play");
-        socket.on('test', () => {
+        socket.on('start', () => {
             console.log('test');
         })
       }
