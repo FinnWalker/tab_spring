@@ -29,7 +29,7 @@ const groups = require("./routes/groups.js");
 app.use("/tab_spring/api/groups", verifyRequest, groups);
 
 
-app.post("tab_spring/api/signature", (req, res) => {
+app.post("/tab_spring/api/signature", (req, res) => {
   
     var base64Data = req.body.img.replace(/^data:image\/png;base64,/, "");
     require("fs").writeFile(
