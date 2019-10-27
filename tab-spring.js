@@ -5,8 +5,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
 
 app.use(cors());
 app.options("*", cors());
@@ -45,11 +43,18 @@ app.post("/tab_spring/api/signature", (req, res) => {
   res.json({});
 });
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-})
 
 const port = 6666;
-http.listen(port, "0.0.0.0", () => {
+const server = app.listen(port, "0.0.0.0", () => {
   console.log(`App listening on port ${port}`);
+});
+
+
+const io = require("socket.io").listen(server, {
+    path: "/tab_spring/socket.io"
+});
+
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
 });
