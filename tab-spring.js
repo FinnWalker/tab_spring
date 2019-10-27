@@ -5,21 +5,22 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 
-app.use(cors());
-app.options('*', cors());
-app.use(bodyParser.urlencoded({extended: false}));
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 
+app.use(cors());
+app.options("*", cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/tab_spring/", express.static("public"));
 
-
 function verifyRequest(req, res, next) {
-    if(req.headers["accesskey"] === "SpringWall") {
-        next();
-    } else {
-	console.log(req.headers);
-        res.status(400).json({message: "Access denied"});
-    }
+  if (req.headers["accesskey"] === "SpringWall") {
+    next();
+  } else {
+    console.log(req.headers);
+    res.status(400).json({ message: "Access denied" });
+  }
 }
 
 const participants = require("./routes/participants.js");
@@ -31,21 +32,24 @@ app.use("/tab_spring/api/groups", verifyRequest, groups);
 const play = require("./routes/play.js");
 app.use("/tab_spring/api/play", verifyRequest, play);
 
-
 app.post("/tab_spring/api/signature", (req, res) => {
-  
-    var base64Data = req.body.img.replace(/^data:image\/png;base64,/, "");
-    require("fs").writeFile(
-      `./signatures/${req.body.id}.png`,
-      base64Data,
-      "base64",
-      function (err) {
-        if (err) console.log(err);
-      }
-    );
-    res.json({});
-  });
-  
+  var base64Data = req.body.img.replace(/^data:image\/png;base64,/, "");
+  require("fs").writeFile(
+    `./signatures/${req.body.id}.png`,
+    base64Data,
+    "base64",
+    function(err) {
+      if (err) console.log(err);
+    }
+  );
+  res.json({});
+});
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+})
 
 const port = 6666;
-app.listen(port, "0.0.0.0", () => {console.log(`App listening on port ${port}`)});
+http.listen(port, "0.0.0.0", () => {
+  console.log(`App listening on port ${port}`);
+});
