@@ -75,24 +75,22 @@ module.exports = {
     });
   },
   deactivate: function(req, res) {
-    const id = sanitize(req.body.group_id);
-    if (id) {
-      groupModel.findOne({ _id: id }, (err, group) => {
+      groupModel.find({ playing: true }, (err, groups) => {
         if (err) {
           res
             .status(500)
             .json({ message: "There was an error deleting the group" });
-        } else if (group) {
-          group.active = false;
-          group.save();
-          res.status(200).json({ message: "Group deactivated" });
+        } else if (groups) {
+          for (let group of groups) {
+            group.active = false;
+            group.save();
+          }
+          res.status(200).json({ message: "Groups deactivated" });
         } else {
-          res.status(300).json({ message: "Could not find group" });
+          res.status(300).json({ message: "Could not find groups" });
         }
       });
-    } else {
-      res.status(300).json({ message: "Please include all fields" });
-    }
+
   },
   play: function(req, res) {
     const id = sanitize(req.body.group_id);
@@ -129,7 +127,7 @@ module.exports = {
       if (err) {
         res
           .status(500)
-          .json({ message: "There was an error deleting the group" });
+          .json({ message: "There was an error stopping a group" });
       } else if (groups) {
         for (let group of groups) {
           group.playing = false;
