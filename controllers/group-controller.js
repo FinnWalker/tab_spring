@@ -103,10 +103,19 @@ module.exports = {
             .status(500)
             .json({ message: "There was an error deleting the group" });
         } else if (group) {
-          group.playing = true;
-          group.save();
-          res.status(200).json({ message: "Group playing" });
-          req.app.io.emit('start');
+          groupModel.find({playing: true}, (err, groups) => {
+            if(groups) {
+              for (let group of groups) {
+                group.playing = false;
+                group.save();
+              }
+            }
+          }).then(() => {
+            group.playing = true;
+            group.save();
+            res.status(200).json({ message: "Group playing" });
+            req.app.io.emit('start');
+          });
         } else {
           res.status(300).json({ message: "Could not find group" });
         }
