@@ -83,6 +83,7 @@ module.exports = {
         } else if (groups) {
           for (let group of groups) {
             group.active = false;
+            group.playing = false;
             group.save();
           }
           res.status(200).json({ message: "Groups deactivated" });
