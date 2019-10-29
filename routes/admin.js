@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const groupController = require("../controllers/group-controller.js");
+const adminController = require("../controllers/admin-controller.js");
 
-router.post("/depth_threshold", admingController.depthThreshold);
+router.post("/depth_threshold", adminController.depthThreshold);
 
 
 module.exports = router;

@@ -30,6 +30,9 @@ app.use("/tab_spring/api/groups", verifyRequest, groups);
 const plays = require("./routes/plays.js");
 app.use("/tab_spring/api/plays", verifyRequest, plays);
 
+const admin = require("./routes/admin.js");
+app.use("/tab_spring/admin/", verifyRequest, admin);
+
 app.post("/tab_spring/api/signature", (req, res) => {
   var base64Data = req.body.img.replace(/^data:image\/png;base64,/, "");
   require("fs").writeFile(
