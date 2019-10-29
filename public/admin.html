@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ADMIN</title>
+  </head>
+  <body>
+      <h1>Set depth range (remember these values for the next time you run the app)</h1>
+    <label>MIN: <input id="min-input" type="text"></input></label>
+    <label>MAX: <input id="max-input" type="text"></input></label>
+    <button onclick="submit()">SUBMIT</button>
+
+  </body>
+
+  <script>
+    let password = prompt("Please enter the password", "");
+
+    function submit() {
+        const min = document.getElementById('min-input').value;
+        const max = document.getElementById('max-input').value;
+        setRange(min, max);
+    }
+
+    function setRange(min, max) {
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          console.log(this.response);
+        }
+      };
+      xhttp.open(
+        "POST",
+        "https://shoreportal.com/tab_spring/admin/depth_threshold",
+        true
+      );
+      xhttp.setRequestHeader(
+        "Content-type",
+        "application/x-www-form-urlencoded"
+      );
+      xhttp.setRequestHeader("AccessKey", password);
+      xhttp.send("min=" + min + "&max=" + max);
+    }
+  </script>
+</html>
