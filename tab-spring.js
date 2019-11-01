@@ -14,7 +14,7 @@ app.use("/tab_spring/", express.static("public"));
 
 
 const participantController = require("./controllers/participant-controller.js");
-app.get("tab_spring/api/unsubscribe", participantController.unsubscribe);
+app.get("/tab_spring/api/participants/unsubscribe", participantController.unsubscribe);
 
 function verifyRequest(req, res, next) {
   if (req.headers["accesskey"] === "SpringWall") {
