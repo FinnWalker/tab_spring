@@ -12,6 +12,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/tab_spring/", express.static("public"));
 
+
+const participantController = require("./controllers/participant-controller.js");
+app.get("tab_spring/api/unsubscribe", participantController.unsubscribe);
+
 function verifyRequest(req, res, next) {
   if (req.headers["accesskey"] === "SpringWall") {
     next();
@@ -46,8 +50,6 @@ app.post("/tab_spring/api/signature", (req, res) => {
   res.json({});
 });
 
-const participantController = require("./controllers/participant-controller.js");
-app.get("tab_spring/api/unsubscribe", participantController.unsubscribe);
 
 
 const port = 6666;
