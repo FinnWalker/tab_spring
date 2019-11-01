@@ -46,23 +46,23 @@
       xhttp.setRequestHeader("AccessKey", password);
       xhttp.send("min=" + min + "&max=" + max);
 
-      let xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
+      let xhttp2 = new XMLHttpRequest();
+      xhttp2.onreadystatechange = function() {
         if (this.readyState == 4) {
           console.log(this.response);
         }
       };
-      xhttp.open(
+      xhttp2.open(
         "POST",
         "https://shoreportal.com/tab_spring/admin/brightness",
         true
       );
-      xhttp.setRequestHeader(
+      xhttp2.setRequestHeader(
         "Content-type",
         "application/x-www-form-urlencoded"
       );
-      xhttp.setRequestHeader("AccessKey", password);
-      xhttp.send("brightness=" + brightness);
+      xhttp2.setRequestHeader("AccessKey", password);
+      xhttp2.send("brightness=" + brightness);
     }
   </script>
 </html>
