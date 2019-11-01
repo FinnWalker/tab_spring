@@ -46,7 +46,7 @@ module.exports = {
         
     },
     unsubscribe: function(req, res) {
-        const participant_id = sanitize(req.params.participant_id);
+        const participant_id = sanitize(req.query.participant_id);
         if(participant_id)
         {
             participantModel.findOne({_id: participant_id}, (err, participant) => {
