@@ -44,5 +44,24 @@ module.exports = {
             res.status(300).json({message: "Please include all fields"});
         }
         
+    },
+    unsubscribe: function(req, res) {
+        const participant_id = sanitize(req.body.participant_id);
+        if(participant_id)
+        {
+            participantModel.findOne({_id: participant_id}, (err, participant) => {
+                if(err) {
+                    res.status(500).json({message: "There was an error finding participants"});
+                } else if(participant) {
+                    participant.unsubscribed = true;
+                    participant.save().then(res.status(200).json(participant));
+                } else {
+                    res.status(300).json({message: "Participant not found"});
+                }
+            });
+        } else {
+            res.status(300).json({message: "Please include all fields"});
+        }
+        
     }
 }

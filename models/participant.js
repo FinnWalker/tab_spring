@@ -12,7 +12,8 @@ const ParticipantSchema = new Schema({
     mobile_number: String,
     marketing_tab: Boolean,
     marketing_atc: Boolean,
-    active: Boolean
+    active: Boolean,
+    unsubscribed: false
 });
 
 module.exports = mongoose.model("Participant", ParticipantSchema);
