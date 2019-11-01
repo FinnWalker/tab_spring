@@ -8,4 +8,13 @@ module.exports = {
       res.status(300).json({message: "Please include min and max values."});
     }
   },
+  brightness: function(req, res) {
+    if(req.body.brightness) {
+      res.status(200).json({ message: "Message sent" });
+      req.app.io.emit("brightness", {brightness: req.body.brightness});
+    }
+    else {
+      res.status(300).json({message: "Please include a brightness value."});
+    }
+  },
 };

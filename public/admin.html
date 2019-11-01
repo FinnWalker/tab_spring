@@ -10,6 +10,9 @@
       <h1>Set depth range (remember these values for the next time you run the app)</h1>
     <label>MIN: <input id="min-input" type="text"></input></label>
     <label>MAX: <input id="max-input" type="text"></input></label>
+
+    <label>BRIGHTNESS: <input id="brightness-input" type="text"></input></label>
+
     <button onclick="submit()">SUBMIT</button>
 
   </body>
@@ -20,10 +23,11 @@
     function submit() {
         const min = document.getElementById('min-input').value;
         const max = document.getElementById('max-input').value;
-        setRange(min, max);
+        const brightness = document.getElementById('brightness-input').value;
+        setRangeBrightness(min, max, brightness);
     }
 
-    function setRange(min, max) {
+    function setRangeBrightness(min, max, brightness) {
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
@@ -41,6 +45,24 @@
       );
       xhttp.setRequestHeader("AccessKey", password);
       xhttp.send("min=" + min + "&max=" + max);
+
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          console.log(this.response);
+        }
+      };
+      xhttp.open(
+        "POST",
+        "https://shoreportal.com/tab_spring/admin/brightness",
+        true
+      );
+      xhttp.setRequestHeader(
+        "Content-type",
+        "application/x-www-form-urlencoded"
+      );
+      xhttp.setRequestHeader("AccessKey", password);
+      xhttp.send("brightness=" + brightness);
     }
   </script>
 </html>
