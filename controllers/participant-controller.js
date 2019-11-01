@@ -15,7 +15,7 @@ module.exports = {
         const marketing_atc = sanitize(req.body.marketing_atc);
 
         if(eligible && terms && first_name && last_name && date_of_birth && email && mobile && marketing_tab && marketing_atc) {
-            participantModel.create({eligible, terms, first_name, last_name, date_of_birth, email, mobile, marketing_tab, marketing_atc, active: true}, function(err, participant) {
+            participantModel.create({eligible, terms, first_name, last_name, date_of_birth, email, mobile, marketing_tab, marketing_atc, active: true, unsubscribed: false}, function(err, participant) {
                 if(err) {
                     res.status(500).json({message: "Error creating participant"});
                 } else {

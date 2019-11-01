@@ -46,6 +46,9 @@ app.post("/tab_spring/api/signature", (req, res) => {
   res.json({});
 });
 
+const participantController = require("./controllers/participant-controller.js");
+app.get("tab_spring/api/unsubscribe", participantController.unsubscribe);
+
 
 const port = 6666;
 const server = app.listen(port, "0.0.0.0", () => {
