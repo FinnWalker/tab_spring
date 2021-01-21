@@ -15,7 +15,7 @@
     "fs": "0.0.1-security",
     "mongo-sanitize": "^1.0.1",
     "mongoose": "^5.7.7",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "uuid": "^3.3.3"
   }
 }
